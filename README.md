@@ -1,0 +1,1 @@
+Clear workspace for create a tfc adddon.
