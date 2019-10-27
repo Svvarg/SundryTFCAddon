@@ -78,8 +78,8 @@ atlassian-ide-plugin.xml
 /eclipse/config/
 /eclipse/asm/
 #MC Player info file
-usernamecache.json
-
+/eclipse/usernamecache.json
+/eclipse/options.txt
 
 
 ### NetBeans ###

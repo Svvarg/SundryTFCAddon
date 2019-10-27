@@ -1,14 +1,14 @@
 [
 {
-  "modid": "examplemod",
-  "name": "Example Mod",
-  "description": "Example placeholder mod.",
+  "modid": "Sundry TFC Addon",
+  "name": "Sundry",
+  "description": "First steps at TFC Addon",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "",
   "updateUrl": "",
   "authorList": ["ExampleDude"],
-  "credits": "The Forge and FML guys, for making this example",
+  "credits": "TFC community",
   "logoFile": "",
   "screenshots": [],
   "dependencies": []
