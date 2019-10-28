@@ -5,6 +5,8 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemFood;
+
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -21,6 +23,7 @@ public class Sundry {
     public static Item samdust;
     private static Item samingot;
     
+    private static ItemFood berry;
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
@@ -30,8 +33,10 @@ public class Sundry {
         samdust = new ItemSamGeneric("samdust");
         samingot = new ItemSamGeneric("samingot");
         GameRegistry.registerItem(samdust, "SamDust");
-        GameRegistry.registerItem(samingot, "SamIngot");        
+        GameRegistry.registerItem(samingot, "SamIngot");
         
+        berry = new ItemBerry(3, 0.3F, true, "Berry");
+        GameRegistry.registerItem(berry, "Berry");
     }
 
     

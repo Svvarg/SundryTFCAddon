@@ -28,7 +28,7 @@ public class ItemKey extends Item {
 //        setTextureName(Sundry.MODID+":"+name);
 //        setCreativeTab(CreativeTabs.tabMisc);        
 //    }
-    private static final String[] NAME = {"grey","red"};
+    private static final String[] NAME = {"grey","red","green"};
     
     @SideOnly(Side.CLIENT)
     private IIcon[] icons;
