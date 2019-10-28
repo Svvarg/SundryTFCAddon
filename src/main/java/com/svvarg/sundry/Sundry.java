@@ -13,6 +13,8 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.init.Items;
+import net.minecraftforge.common.util.EnumHelper;
+import net.minecraft.item.Item.ToolMaterial;
 
 @Mod(modid = Sundry.MODID, version = Sundry.VERSION)
 public class Sundry {
@@ -24,6 +26,12 @@ public class Sundry {
     private static Item samingot;
     
     private static ItemFood berry;
+    
+    public static Item titaniumpickaxe;
+    ToolMaterial titanium = EnumHelper.addToolMaterial("titanium", 3, 1000, 9.5F, 3.5F, 10);
+    
+    private static Item sampaxel;
+    
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
@@ -37,6 +45,13 @@ public class Sundry {
         
         berry = new ItemBerry(3, 0.3F, true, "Berry");
         GameRegistry.registerItem(berry, "Berry");
+        
+        titaniumpickaxe = new ItemTitaniumPickaxe(titanium, "titaniumpickaxe");
+        GameRegistry.registerItem(titaniumpickaxe, "TitaniumPickaxe");
+        
+        sampaxel = new ItemSamPaxel (titanium, "sampaxel");
+        GameRegistry.registerItem(sampaxel, "SamsPaxel");
+        
     }
 
     
