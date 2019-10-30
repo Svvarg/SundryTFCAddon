@@ -1,6 +1,7 @@
 package com.svvarg.sundry;
 
 //import net.minecraft.entity.Entity;
+import com.bioxx.tfc.api.TFCItems;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -12,10 +13,13 @@ import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraft.block.Block;
 import net.minecraft.init.Items;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
+import net.minecraft.item.crafting.CraftingManager;
+import net.minecraft.item.crafting.RecipeFireworks;
 
 @Mod(modid = Sundry.MODID, version = Sundry.VERSION)
 public class Sundry {
@@ -38,6 +42,9 @@ public class Sundry {
     public static Item schest;
     public static Item sleggings;
     public static Item sboots;
+    
+    public static Block sStone;
+   
 
     ArmorMaterial sarmor = EnumHelper.addArmorMaterial("sarmor", 20, new int[]{3, 7, 6, 3}, 10);
 
@@ -68,6 +75,13 @@ public class Sundry {
         GameRegistry.registerItem(schest, "SChest");
         GameRegistry.registerItem(sleggings, "SLeggings");
         GameRegistry.registerItem(sboots, "SBooths");
+        
+        sStone = new BlockSStone();
+        GameRegistry.registerBlock(sStone, "SStone");
+        
+        
+        
+        CraftingManager.getInstance().getRecipeList().add(new RecipeTFCFireworks ());
 
     }
 

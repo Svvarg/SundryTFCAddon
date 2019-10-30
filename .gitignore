@@ -84,6 +84,7 @@ atlassian-ide-plugin.xml
 /eclipse/saves/
 /eclipse/resourcepacks/
 /eclipse/mods/
+/eclipse/crash-reports/
 /eclipse/logs/
 /eclipse/config/
 /eclipse/asm/
