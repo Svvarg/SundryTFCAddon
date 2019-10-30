@@ -21,6 +21,8 @@ import net.minecraft.world.World;
 import com.bioxx.tfc.api.TFCItems;
 import com.bioxx.tfc.Items.ItemOre;
 import com.bioxx.tfc.Items.ItemTerra;
+import com.bioxx.tfc.api.Constant.Global;
+import com.bioxx.tfc.api.Interfaces.ISmeltable;
 import net.minecraft.item.Item;
 
 public class RecipeTFCFireworks implements IRecipe {
@@ -31,6 +33,12 @@ public class RecipeTFCFireworks implements IRecipe {
     /**
      * Used to check if a recipe matches current crafting inventory
      */
+    
+    private boolean isGoldNugget(ItemStack is) {
+        return ( (is.getItem() instanceof ItemOre) && (((ISmeltable) is.getItem()).getMetalType(is) == Global.GOLD)&&
+                (((ISmeltable)is.getItem()).getMetalReturnAmount(is)<=15 ) )  ;         
+    }
+
     public boolean matches(InventoryCrafting p_77569_1_, World p_77569_2_) {
         this.field_92102_a = null;
         int i = 0;
@@ -39,8 +47,8 @@ public class RecipeTFCFireworks implements IRecipe {
         int l = 0;
         int i1 = 0;
         int j1 = 0;
-        ItemStack gold = new ItemStack(TFCItems.oreChunk, 1, 1);
-        Item goldNugget = gold.getItem();
+        //ItemStack gold = new ItemStack(TFCItems.smallOreChunk, 1, 1);
+        //Item goldNugget = gold.getItem();
 
         //Item diamond;
         for (int k1 = 0; k1 < p_77569_1_.getSizeInventory(); ++k1) {
@@ -48,32 +56,27 @@ public class RecipeTFCFireworks implements IRecipe {
 
             //System.out.println(" gold nugget = ["+goldNugget.getDisplayNamewDamage(itemstack)getUnlocalizedName()+"]");
             if (itemstack != null) {
-                String name1 = gold.getUnlocalizedName();
-                String name2 = gold.getDisplayName();
-                System.out.println("item [" + name2 + "  " + name1);
-                //if (itemstack.getItem() == goldNugget
 
                 if (itemstack.getItem() == Items.gunpowder) {
                     ++j;
                 } else if (itemstack.getItem() == Items.firework_charge) {
-                    ++l;
+                    ++l;                    
                 } else if (itemstack.getItem() == TFCItems.dye /* Items.dye*/) {
                     ++k;
                 } else if (itemstack.getItem() == Items.paper) {
                     ++i;
-                } else if (itemstack.getItem() == Items.glowstone_dust) {
+                } else if (itemstack.getItem() == Items.redstone /*Items.glowstone_dust*/) {
                     ++i1;
-                } else if (itemstack.getItem() == Items.diamond) {
+                } else if (itemstack.getItem() == TFCItems.gemDiamond /*Items.diamond*/) {
                     ++i1;
                 } else if (itemstack.getItem() == Items.fire_charge) {
                     ++j1;
                 } else if (itemstack.getItem() == Items.feather) {
                     ++j1;
-                } else if (itemstack.getItem() == /*Items.gold_nugget*/ goldNugget) {
+                } else if (isGoldNugget(itemstack) /*Items.gold_nugget*/ ) {
                     ++j1;
-                    System.out.println("BINGO! GOLD");
                 } else {
-                    if (itemstack.getItem() != Items.skull) {
+                    if (itemstack.getItem() != TFCItems.wroughtIronUnfinishedHelmet /* Items.skull*/) {
                         return false;
                     }
 
@@ -126,17 +129,17 @@ public class RecipeTFCFireworks implements IRecipe {
                         if (itemstack2.getItem() == TFCItems.dye /* Items.dye*/) {
                             arraylist.add(Integer.valueOf(ItemDye.field_150922_c[itemstack2.getItemDamage()]));
 
-                        } else if (itemstack2.getItem() == Items.glowstone_dust) {
+                        } else if (itemstack2.getItem() == Items.redstone /*Items.glowstone_dust*/) {
                             nbttagcompound1.setBoolean("Flicker", true);
-                        } else if (itemstack2.getItem() == Items.diamond) {
+                        } else if (itemstack2.getItem() == TFCItems.gemDiamond /*Items.diamond*/) {
                             nbttagcompound1.setBoolean("Trail", true);
-                        } else if (itemstack2.getItem() == Items.fire_charge) {
+                        } else if (itemstack2.getItem() ==/*TFCItems.coal */ Items.fire_charge) {
                             b0 = 1;
                         } else if (itemstack2.getItem() == Items.feather) {
                             b0 = 4;
-                        } else if (itemstack2.getItem() == goldNugget /*Items.gold_nugget*/) {
+                        } else if (isGoldNugget(itemstack2) /*Items.gold_nugget*/) {
                             b0 = 2;
-                        } else if (itemstack2.getItem() == Items.skull) {
+                        } else if (itemstack2.getItem() == TFCItems.wroughtIronUnfinishedHelmet/*Items.skull*/) {
                             b0 = 3;
                         }
                     }

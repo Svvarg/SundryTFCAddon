@@ -82,7 +82,7 @@ public class Sundry {
         
         
         CraftingManager.getInstance().getRecipeList().add(new RecipeTFCFireworks ());
-
+        
     }
 
     @EventHandler
