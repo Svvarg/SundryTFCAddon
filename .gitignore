@@ -29,68 +29,18 @@ crashlytics-build.properties
 
 
 # Eclipse
-# -------
+.metadata
 *.classpath
 *.project
 /bin
 /subprojects/*/bin
 atlassian-ide-plugin.xml
 .settings
-/eclipse/.metadata/*
-
-### forge eclipse start workspace files ###
-/eclipse/.metadata/.plugins/*
-!/eclipse/.metadata/.plugins/
-/eclipse/.metadata/.plugins/org.eclipse.debug.ui/*
-!/eclipse/.metadata/.plugins/org.eclipse.debug.ui/
-!/eclipse/.metadata/.plugins/org.eclipse.debug.ui/launchConfigurationHistory.xml
-
-/eclipse/.metadata/.plugins/org.eclipse.debug.core/*
-!/eclipse/.metadata/.plugins/org.eclipse.debug.core/
-/eclipse/.metadata/.plugins/org.eclipse.debug.core/.launches/*
-!/eclipse/.metadata/.plugins/org.eclipse.debug.core/.launches/
-!/eclipse/.metadata/.plugins/org.eclipse.debug.core/.launches/Client.launch
-!/eclipse/.metadata/.plugins/org.eclipse.debug.core/.launches/Server.launch
-
-/eclipse/.metadata/.plugins/org.eclipse.core.resources/*
-!/eclipse/.metadata/.plugins/org.eclipse.core.resources/
-/eclipse/.metadata/.plugins/org.eclipse.core.resources/.root/*
-!/eclipse/.metadata/.plugins/org.eclipse.core.resources/.root/
-!/eclipse/.metadata/.plugins/org.eclipse.core.resources/.root/0.tree
-
-/eclipse/.metadata/.plugins/org.eclipse.core.resources/.projects/*
-!/eclipse/.metadata/.plugins/org.eclipse.core.resources/.projects/
-
-/eclipse/.metadata/.plugins/org.eclipse.core.resources/.projects/Minecraft/*
-!/eclipse/.metadata/.plugins/org.eclipse.core.resources/.projects/Minecraft/
-!/eclipse/.metadata/.plugins/org.eclipse.core.resources/.projects/Minecraft/.location
-
-/eclipse/.metadata/.plugins/org.eclipse.core.runtime/*
-!/eclipse/.metadata/.plugins/org.eclipse.core.runtime/
-/eclipse/.metadata/.plugins/org.eclipse.core.runtime/.settings/*
-!/eclipse/.metadata/.plugins/org.eclipse.core.runtime/.settings/
-!/eclipse/.metadata/.plugins/org.eclipse.core.runtime/.settings/org.eclipse.core.resources.prefs
-!/eclipse/.metadata/.plugins/org.eclipse.core.runtime/.settings/org.eclipse.debug.ui.prefs
-!/eclipse/.metadata/.plugins/org.eclipse.core.runtime/.settings/org.eclipse.epp.usagedata.gathering.prefs
-!/eclipse/.metadata/.plugins/org.eclipse.core.runtime/.settings/org.eclipse.jdt.core.prefs
-!/eclipse/.metadata/.plugins/org.eclipse.core.runtime/.settings/org.eclipse.ui.editors.prefs
-!/eclipse/.metadata/.plugins/org.eclipse.core.runtime/.settings/org.eclipse.ui.ide.prefs
-!/eclipse/.metadata/.plugins/org.eclipse.core.runtime/.settings/org.eclipse.ui.prefs
-
-
-
-
-#MC work files
-/eclipse/saves/
-/eclipse/resourcepacks/
-/eclipse/mods/
-/eclipse/crash-reports/
-/eclipse/logs/
-/eclipse/config/
-/eclipse/asm/
-#MC Player info file
-/eclipse/usernamecache.json
-/eclipse/options.txt
+eclipse/
+.classpath
+.project
+.settings
+.metadata
 
 
 ### NetBeans ###

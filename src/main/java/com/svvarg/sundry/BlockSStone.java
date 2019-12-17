@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.svvarg.sundry;
 
 import java.util.Random;
@@ -23,8 +18,9 @@ public class BlockSStone extends Block {
         setBlockName(Sundry.MODID+"_"+name);
         setBlockTextureName(Sundry.MODID+":"+name);
         setCreativeTab(CreativeTabs.tabMisc);
-        setHardness(2f);//-1.0F);
+        setHardness(2f);//-1.0Fдля бедрока - не ломаемый); как долго ломать
         setResistance(5f);//6000000.0F);
+        setStepSound(soundTypeStone);
         setHarvestLevel("pickaxe",2);        
     }
     @Override

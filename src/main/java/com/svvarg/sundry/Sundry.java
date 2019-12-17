@@ -19,7 +19,7 @@ import net.minecraftforge.common.util.EnumHelper;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.crafting.CraftingManager;
-import net.minecraft.item.crafting.RecipeFireworks;
+
 
 @Mod(modid = Sundry.MODID, version = Sundry.VERSION)
 public class Sundry {
@@ -81,7 +81,7 @@ public class Sundry {
         
         
         
-        CraftingManager.getInstance().getRecipeList().add(new RecipeTFCFireworks ());
+       
         
     }
 
