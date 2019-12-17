@@ -77,7 +77,8 @@ public class Sundry {
         GameRegistry.registerItem(sboots, "SBooths");
         
         sStone = new BlockSStone();
-        GameRegistry.registerBlock(sStone, "SStone");
+        //GameRegistry.registerBlock(sStone, "SStone"); //normal
+        GameRegistry.registerBlock(sStone, ItemSStone.class, "SStone");//for metadata
         
         
         
