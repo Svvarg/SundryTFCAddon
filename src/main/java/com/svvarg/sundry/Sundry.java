@@ -30,7 +30,7 @@ public class Sundry {
     public static Item samdust;
     private static Item samingot;
 
-    private static ItemFood berry;
+    public static ItemFood berry;
 
     public static Item titaniumpickaxe;
     ToolMaterial titanium = EnumHelper.addToolMaterial("titanium", 3, 1000, 9.5F, 3.5F, 10);
@@ -44,6 +44,9 @@ public class Sundry {
     public static Item sboots;
     
     public static Block sStone;
+    
+    public static Block sPlant;    
+    public static Item sSeed;
    
 
     ArmorMaterial sarmor = EnumHelper.addArmorMaterial("sarmor", 20, new int[]{3, 7, 6, 3}, 10);
@@ -77,10 +80,17 @@ public class Sundry {
         GameRegistry.registerItem(sboots, "SBooths");
         
         sStone = new BlockSStone();
-        //GameRegistry.registerBlock(sStone, "SStone"); //normal
+        //GameRegistry.registerBlock(sStone, "SStone"); //normal register method without use meta
         GameRegistry.registerBlock(sStone, ItemSStone.class, "SStone");//for metadata
+        //внутри класса ItemSStone указание что этот класс использует субмету
+        //возврат меты для блока при ломании
+        //возврат неЛокализованных имён
         
+        sPlant = new BlockSPlant();
+        GameRegistry.registerBlock(sPlant,"Sundry Plant");//reg method as without meta
         
+        sSeed = new ItemSSeed(sPlant);
+        GameRegistry.registerItem(sSeed, "SSeed");
         
        
         

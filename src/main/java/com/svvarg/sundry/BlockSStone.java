@@ -11,6 +11,8 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.IBlockAccess;
+import net.minecraftforge.common.util.ForgeDirection;
 
 /**
  *
@@ -25,12 +27,28 @@ public class BlockSStone extends Block {
     public BlockSStone() {
         super(Material.rock);
         setBlockName(Sundry.MODID+"_"+name);
-        //setBlockTextureName(Sundry.MODID+":"+name); for use block with meta
+        //setBlockTextureName(Sundry.MODID+":"+name); for use block without meta
         setCreativeTab(CreativeTabs.tabMisc);
         setHardness(2f);//-1.0Fдля бедрока - не ломаемый); как долго ломать
         setResistance(5f);//6000000.0F);
         setStepSound(soundTypeStone);
         setHarvestLevel("pickaxe",2);        
+        
+        //this.setBlockBounds(0, 0, 0, 0.5F, 1F, 0.25F); задание формы для всех блоков
+    }
+    
+    @Override
+    public boolean isOpaqueCube()
+    {
+        return false;
+    }
+    
+    public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z)
+    {
+        if ( world.getBlockMetadata(x, y, z) == 1 )
+        {
+            setBlockBounds(0F,0F,0F,1F,0.5F,1F);
+        }
     }
     
     @Override
@@ -42,7 +60,7 @@ public class BlockSStone extends Block {
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister par1IconRegister)
     {
-        icons = new IIcon[2];
+        icons = new IIcon[3];
         for (int i = 0; i < icons.length; i++) 
         {
             icons[i] = par1IconRegister.registerIcon(Sundry.MODID+":"+name+i);            
@@ -53,7 +71,20 @@ public class BlockSStone extends Block {
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(int par1, int par2)
     {
-        return icons[par2];
+        switch(par2)
+        {
+            case 0: 
+                return icons[0];
+            case 1:
+                if (ForgeDirection.getOrientation(par1)==ForgeDirection.UP 
+                        ||ForgeDirection.getOrientation(par1)== ForgeDirection.DOWN)
+                    return icons[2];
+                else
+                    return icons[1];
+            default:
+                System.out.println("Problem with getting the icon for BlockSStone");
+                return null;                
+        }            
     }
     
     @SuppressWarnings({"unckecked","rawtypes"})
