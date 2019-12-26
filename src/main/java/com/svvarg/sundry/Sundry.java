@@ -47,6 +47,8 @@ public class Sundry {
     
     public static Block sPlant;    
     public static Item sSeed;
+    
+    public static Block sTE;
    
 
     ArmorMaterial sarmor = EnumHelper.addArmorMaterial("sarmor", 20, new int[]{3, 7, 6, 3}, 10);
@@ -92,7 +94,9 @@ public class Sundry {
         sSeed = new ItemSSeed(sPlant);
         GameRegistry.registerItem(sSeed, "SSeed");
         
-       
+        sTE = new BlockSTE();
+        GameRegistry.registerBlock(sTE, "SundryTE");
+        GameRegistry.registerTileEntity(TileEntitySundry.class, "TE_sundryTE");
         
     }
 
