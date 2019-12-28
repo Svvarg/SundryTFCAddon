@@ -1,7 +1,10 @@
 package com.svvarg.sundry;
 
 //import net.minecraft.entity.Entity;
-import com.bioxx.tfc.api.TFCItems;
+//import com.bioxx.tfc.api.TFCItems;
+import com.svvarg.sundry.lootchest.BlockLootChestTE;
+import com.svvarg.sundry.lootchest.GuiLootChestHandler;
+import com.svvarg.sundry.lootchest.TileEntityLootChest;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -10,8 +13,10 @@ import net.minecraft.item.ItemFood;
 
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
+import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.init.Items;
@@ -23,6 +28,9 @@ import net.minecraft.item.crafting.CraftingManager;
 
 @Mod(modid = Sundry.MODID, version = Sundry.VERSION)
 public class Sundry {
+    
+    @Instance("Sundry")
+    public static Sundry instance;
 
     public static final String MODID = "svvarg_sundry_tfc_addon";
     public static final String VERSION = "0.1";
@@ -49,6 +57,8 @@ public class Sundry {
     public static Item sSeed;
     
     public static Block sTE;
+    
+    public static Block lootChestTE;
    
 
     ArmorMaterial sarmor = EnumHelper.addArmorMaterial("sarmor", 20, new int[]{3, 7, 6, 3}, 10);
@@ -98,6 +108,10 @@ public class Sundry {
         GameRegistry.registerBlock(sTE, "SundryTE");
         GameRegistry.registerTileEntity(TileEntitySundry.class, "TE_sundryTE");
         
+        lootChestTE = new BlockLootChestTE();
+        GameRegistry.registerBlock(lootChestTE, "LootChestTEBlock");
+        GameRegistry.registerTileEntity(TileEntityLootChest.class, "TELootChest");
+        
     }
 
     @EventHandler
@@ -110,5 +124,7 @@ public class Sundry {
         enchantedSwordItemStack.addEnchantment(Enchantment.sharpness, 1);
         GameRegistry.addShapelessRecipe(enchantedSwordItemStack, Items.flint, Items.stone_sword);
 
+        Sundry.instance = this;
+        NetworkRegistry.INSTANCE.registerGuiHandler(Sundry.instance, new GuiLootChestHandler());
     }
 }
