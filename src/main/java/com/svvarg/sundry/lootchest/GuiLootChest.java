@@ -2,6 +2,7 @@ package com.svvarg.sundry.lootchest;
 
 import com.svvarg.sundry.lootchest.TileEntityLootChest;
 import static com.svvarg.sundry.Sundry.MODID;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -47,8 +48,10 @@ public class GuiLootChest extends GuiContainer {
         // Окрасить все в белый цвет и в полную непрозрачность, не уверен в нужности.
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         
+        Minecraft.getMinecraft().getTextureManager().bindTexture(textures);
+        drawTexturedModalRect(guiLeft,guiTop,0,0,176,166);
         // Привязать текстуру
-        mc.getTextureManager().bindTexture(textures);
+        //mc.getTextureManager().bindTexture(textures);
     }
 
 }

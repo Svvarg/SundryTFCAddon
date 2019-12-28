@@ -5,6 +5,9 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 
 /**
@@ -21,8 +24,8 @@ public class TileEntityLootChest extends TileEntity implements IInventory {
     }
 
     @Override
-    public ItemStack getStackInSlot(int slot) {
-        return ( this.inventory != null && slot < this.inventory.length) ? this.inventory[slot]: null;
+    public ItemStack getStackInSlot(int i) {
+        return ( this.inventory != null && i < this.inventory.length) ? this.inventory[i]: null;
     }
 
     @Override
@@ -60,11 +63,11 @@ public class TileEntityLootChest extends TileEntity implements IInventory {
     }
 
     @Override
-    public ItemStack getStackInSlotOnClosing(int p) {
-      if (this.inventory[p] != null)
+    public ItemStack getStackInSlotOnClosing(int i) {
+      if (this.inventory[i] != null)
         {
-            ItemStack itemstack = this.inventory[p];
-            this.inventory[p] = null;
+            ItemStack itemstack = this.inventory[i];
+            this.inventory[i] = null;
             return itemstack;
         }
         else
@@ -92,7 +95,7 @@ public class TileEntityLootChest extends TileEntity implements IInventory {
 
     @Override
     public boolean hasCustomInventoryName() {
-        return true;      
+        return false;      
     }
 
     @Override
@@ -117,7 +120,7 @@ public class TileEntityLootChest extends TileEntity implements IInventory {
 
     @Override
     public boolean isItemValidForSlot(int p_94041_1_, ItemStack p_94041_2_) {
-        return true;     
+        return false;
     }
     
     public void readFromNBT(NBTTagCompound tag)
@@ -155,5 +158,19 @@ public class TileEntityLootChest extends TileEntity implements IInventory {
         }
 
         tag.setTag("Items", nbttaglist);
+    }
+    
+    @Override
+    public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity packet) 
+    {
+        this.readFromNBT(packet.func_148857_g());
+    }
+
+    @Override
+    public Packet getDescriptionPacket() 
+    {
+        NBTTagCompound tag = new NBTTagCompound();
+        this.writeToNBT(tag);
+        return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 1, tag);
     }
 }

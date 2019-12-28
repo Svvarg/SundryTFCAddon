@@ -12,7 +12,10 @@ import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
@@ -27,13 +30,13 @@ public class BlockLootChestTE extends BlockContainer {
     private IIcon icon;
 
     public BlockLootChestTE() {
-        super(Material.rock);
+         super(Material.wood);
         setBlockName(Sundry.MODID + "_" + name);
         setCreativeTab(CreativeTabs.tabBlock);
         setHardness(2F);
         setResistance(5F);
         setStepSound(soundTypeStone);
-        setHarvestLevel("pichaxe", 2);
+        setHarvestLevel("axe", 2);
     }
 
     @Override
@@ -58,17 +61,34 @@ public class BlockLootChestTE extends BlockContainer {
     public boolean onBlockActivated(World w, int x, int y, int z, EntityPlayer player,
             int side, float hitX, float hitY, float hitZ) 
     {
-        TileEntity entity = w.getTileEntity(x, y, z);
-        if (entity != null && entity instanceof TileEntityLootChest) {
-            TileEntityLootChest lootChestE =  (TileEntityLootChest) entity;
-            if (!player.isSneaking())// && !w.isRemote) 
-            {
-                
-                player.openGui(Sundry.instance, GUIIDLOOTCHEST, w, x, y, z);
-            }
+        if(player.isSneaking())
+            return false;
+        
+        if (w.isRemote)
+        {
+            w.markBlockForUpdate(x, y, z);
             return true;
         }
-        return false;
+                
+        TileEntity entity = w.getTileEntity(x, y, z);
+        if (entity == null || !(entity instanceof TileEntityLootChest))
+            return false;
+        
+        TileEntityLootChest lootChestE =  (TileEntityLootChest) entity;
+        
+        player.openGui(Sundry.instance, GUIIDLOOTCHEST, w, x, y, z);
+        
+        return true;
+    }
+    
+    @Override
+    public void onBlockPreDestroy(World world, int x, int y, int z, int meta) 
+    {
+        if (world.isRemote)
+            return;
+        
+      //  EntityItem ei = new EntityItem(world, x, y, z, new ItemStack(Item.getItemFromBlock(this), 1, meta));
+      //  world.spawnEntityInWorld(ei);
     }
 }
 
