@@ -25,12 +25,20 @@ public class ContainerLootChest extends Container {
 
         for (i = 0; i < 3; ++i)
         {
-            for (j = 0; j < 3; ++j)
+            for (j = 0; j < 5; ++j)
             {
-                this.addSlotToContainer(new Slot(lootChest, j + i * 3, 62 + j * 18, 17 + i * 18));
+                this.addSlotToContainer(new Slot(lootChest, j + i * 5, 44 + j * 18, 17 + i * 18)
+                {
+                    @Override
+                    public boolean isItemValid(ItemStack itemstack)
+                    {
+                        return false;
+                    }
+                });
             }
         }
-
+        
+        //player inventory
         for (i = 0; i < 3; ++i)
         {
             for (j = 0; j < 9; ++j)
@@ -56,7 +64,7 @@ public class ContainerLootChest extends Container {
     // реакция на шрифт+клик мышкой
     public ItemStack transferStackInSlot(EntityPlayer player, int index)
     {
-        ItemStack itemstack = null;
+        /*ItemStack itemstack = null;
         Slot slot = (Slot)this.inventorySlots.get(index);
 
         if (slot != null && slot.getHasStack())
@@ -64,7 +72,7 @@ public class ContainerLootChest extends Container {
             ItemStack itemstack1 = slot.getStack();
             itemstack = itemstack1.copy();
 
-            if (index < 9)
+            if (index < TileEntityLootChest.SLOTCOUNT)
             {
                 if (!this.mergeItemStack(itemstack1, 9, 45, true))
                 {
@@ -93,7 +101,8 @@ public class ContainerLootChest extends Container {
             slot.onPickupFromSlot(player, itemstack1);
         }
 
-        return itemstack;
+        return itemstack;*/
+        return null;
     }
 
 }

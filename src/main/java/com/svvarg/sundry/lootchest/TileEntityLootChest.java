@@ -9,14 +9,18 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.util.IChatComponent;
 
 /**
  *
  * @author Swarg
  */
 public class TileEntityLootChest extends TileEntity implements IInventory {
-     private int SLOTCOUNT = 9;
+     public static final int SLOTCOUNT = 15;
      private ItemStack[] inventory = new ItemStack[SLOTCOUNT];
+     private String customInventoryName;
 
     @Override
     public int getSizeInventory() {
@@ -88,14 +92,26 @@ public class TileEntityLootChest extends TileEntity implements IInventory {
         this.markDirty();
     }
 
+    public String getCustomName() 
+    {
+        return this.customInventoryName;
+    }
+
+    public void setCustomName(String customName) 
+    {
+        this.customInventoryName = customName;
+    }
+    
+       
     @Override
-    public String getInventoryName() {
-      return "container.lootCheast";
+    public String getInventoryName() 
+    {      
+      return  this.hasCustomInventoryName() ? this.customInventoryName : "container.lootCheast";
     }
 
     @Override
     public boolean hasCustomInventoryName() {
-        return false;      
+        return this.customInventoryName != null && !this.customInventoryName.isEmpty();      
     }
 
     @Override
@@ -119,8 +135,8 @@ public class TileEntityLootChest extends TileEntity implements IInventory {
     }
 
     @Override
-    public boolean isItemValidForSlot(int p_94041_1_, ItemStack p_94041_2_) {
-        return false;
+    public boolean isItemValidForSlot(int p, ItemStack iStack) {
+        return true;
     }
     
     public void readFromNBT(NBTTagCompound tag)
