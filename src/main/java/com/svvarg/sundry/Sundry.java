@@ -24,6 +24,8 @@ import net.minecraftforge.common.util.EnumHelper;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.crafting.CraftingManager;
+import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 
 
 @Mod(modid = Sundry.MODID, version = Sundry.VERSION)
@@ -59,6 +61,8 @@ public class Sundry {
     public static Block sTE;
     
     public static Block lootChestTE;
+    
+    SundryEventHandler handler = new SundryEventHandler();
    
 
     ArmorMaterial sarmor = EnumHelper.addArmorMaterial("sarmor", 20, new int[]{3, 7, 6, 3}, 10);
@@ -112,6 +116,9 @@ public class Sundry {
         GameRegistry.registerBlock(lootChestTE, "LootChestTEBlock");
         GameRegistry.registerTileEntity(TileEntityLootChest.class, "TELootChest");
         
+        GameRegistry.registerWorldGenerator(handler,0);
+        
+        OreDictionary.registerOre("ingotSam", new ItemStack(samingot));
     }
 
     @EventHandler
@@ -126,5 +133,12 @@ public class Sundry {
 
         Sundry.instance = this;
         NetworkRegistry.INSTANCE.registerGuiHandler(Sundry.instance, new GuiLootChestHandler());
+        
+        GameRegistry.addRecipe(new ShapedOreRecipe(Sundry.sampaxel,
+        "XXX",
+        " Y ",
+        " Y ",
+        'X',"ingotSam", 'Y', Items.stick
+        ));
     }
 }
