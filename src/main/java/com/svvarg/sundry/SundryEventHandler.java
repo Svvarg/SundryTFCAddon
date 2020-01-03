@@ -20,19 +20,19 @@ public class SundryEventHandler implements IWorldGenerator
     {
         switch (world.provider.dimensionId)
         {
-            case -1: genetateNether(world, random, chunkX*16,chunkZ*16);
-            case  0: genetateSurface(world, random, chunkX*16,chunkZ*16);
-            case  1: genetateEnd(world, random, chunkX*16,chunkZ*16);
+            case -1: generateNether(world, random, chunkX*16,chunkZ*16);
+            case  0: generateSurface(world, random, chunkX*16,chunkZ*16);
+            case  1: generateEnd(world, random, chunkX*16,chunkZ*16);
         }        
     }
 
-    private void genetateNether(World world, Random random, int x, int z) {
+    private void generateNether(World world, Random random, int x, int z) {
        
     }
 
-    private void genetateSurface(World world, Random random, int x, int z) 
+    private void generateSurface(World world, Random random, int x, int z) 
     {
-        addOreSpawn(Sundry.sStone,0,Blocks.stone, world, random, 
+        addOreSpawn(Sundry.sStone, 0, Blocks.stone, world, random, 
                 x, z,//blockXPos blockZPos
                 16, //maxX
                 16, //maxZ
@@ -42,11 +42,22 @@ public class SundryEventHandler implements IWorldGenerator
                 4, //chancesToSpawn how many veins the can be in a single chunk
                 20, //minY
                 60  //maxY
-        );        
+        );
+        
+        //plants        
+        int posX = x + random.nextInt(16);
+        int posY = 40 + random.nextInt(35);
+        int posZ = z + random.nextInt(16);
+        new WorldGenSundryPlant().generate(world, random, posX, posY, posZ);
 
+        //structure
+        posX = x + random.nextInt(16);
+        posY = 10 + random.nextInt(60);
+        posZ = z + random.nextInt(16);
+        new WorldGenSundryDungeon().generate(world, random, posX, posY, posZ);
     }
 
-    private void genetateEnd(World world, Random random, int x, int z) {
+    private void generateEnd(World world, Random random, int x, int z) {
 
     }
     /**
@@ -82,7 +93,9 @@ public class SundryEventHandler implements IWorldGenerator
             int posX = blockXPos + random.nextInt(maxX);
             int posY = minY + random.nextInt(diffBtwnMinMaxY);
             int posZ = blockZPos + random.nextInt(maxZ);
-            (new WorldGenMinable(block,metadata,maxVeinSize,target)).generate(world,random,posX,posY,posZ);
+            WorldGenMinable wgm = (new WorldGenMinable(block,metadata,maxVeinSize,target));
+            //(new WorldGenMinable(block,metadata,maxVeinSize,target)).generate(world,random,posX,posY,posZ);
+            wgm.generate(world,random,posX,posY,posZ);
         }
         
     }

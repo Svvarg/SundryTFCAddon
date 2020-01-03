@@ -45,9 +45,13 @@ public class BlockSStone extends Block {
     
     public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z)
     {
-        if ( world.getBlockMetadata(x, y, z) == 1 )
+        int meta = world.getBlockMetadata(x, y, z);
+        if ( meta == 1 )
         {
             setBlockBounds(0F,0F,0F,1F,0.5F,1F);
+        } else if(  meta == 0)
+        {
+            setBlockBounds(0F,0F,0F,1F,1F,1F);
         }
     }
     
@@ -82,8 +86,9 @@ public class BlockSStone extends Block {
                 else
                     return icons[1];
             default:
-                System.out.println("Problem with getting the icon for BlockSStone");
-                return null;                
+                return icons[0];
+                //System.out.println("Problem with getting the icon for BlockSStone");
+                //return null;                
         }            
     }
     

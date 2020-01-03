@@ -54,7 +54,7 @@ public class Sundry {
     public static Item sboots;
     
     public static Block sStone;
-    
+        
     public static Block sPlant;    
     public static Item sSeed;
     
@@ -116,8 +116,9 @@ public class Sundry {
         GameRegistry.registerBlock(lootChestTE, "LootChestTEBlock");
         GameRegistry.registerTileEntity(TileEntityLootChest.class, "TELootChest");
         
-        GameRegistry.registerWorldGenerator(handler,0);
         
+        
+        GameRegistry.registerWorldGenerator(handler,0);        
         OreDictionary.registerOre("ingotSam", new ItemStack(samingot));
     }
 
