@@ -14,16 +14,22 @@ import net.minecraft.item.ItemFood;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityList;
+import net.minecraft.entity.EntityList.EntityEggInfo;
+import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.init.Items;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
-import net.minecraft.item.crafting.CraftingManager;
+import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
@@ -36,6 +42,12 @@ public class Sundry {
 
     public static final String MODID = "svvarg_sundry_tfc_addon";
     public static final String VERSION = "0.1";
+    
+    @SidedProxy(clientSide = "com.svvarg.sundry.ClientProxySundry",serverSide = "com.svvarg.sundry.CommonProxySundry")
+    public static CommonProxySundry proxy;   
+    
+    static int startEntityId = 300;
+     
     public static Item key;
     public static Item samdust;
     private static Item samingot;
@@ -63,12 +75,15 @@ public class Sundry {
     public static Block lootChestTE;
     
     SundryEventHandler handler = new SundryEventHandler();
-   
-
+    
+    
+       
     ArmorMaterial sarmor = EnumHelper.addArmorMaterial("sarmor", 20, new int[]{3, 7, 6, 3}, 10);
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
+        proxy.registerRendering();
+        
         key = new ItemKey();
         GameRegistry.registerItem(key, "Key");
 
@@ -116,10 +131,12 @@ public class Sundry {
         GameRegistry.registerBlock(lootChestTE, "LootChestTEBlock");
         GameRegistry.registerTileEntity(TileEntityLootChest.class, "TELootChest");
         
-        
-        
         GameRegistry.registerWorldGenerator(handler,0);        
         OreDictionary.registerOre("ingotSam", new ItemStack(samingot));
+        
+        EntityRegistry.registerModEntity(EntitySundryMob.class,"sundrymob",0,this,80,3,true);        
+        registerEntityEgg(EntitySundryMob.class, 0xd8bb9d, 0xa63c1a);
+        EntityRegistry.addSpawn(EntitySundryMob.class, 10, 1, 3, EnumCreatureType.monster, BiomeGenBase.forest);
     }
 
     @EventHandler
@@ -141,5 +158,24 @@ public class Sundry {
         " Y ",
         'X',"ingotSam", 'Y', Items.stick
         ));
+    }
+    
+    @SuppressWarnings("uncheked")
+    public static void registerEntityEgg(Class<? extends Entity> entity, int primaryColor,
+            int secondaryColor)
+    {
+        int id = getUniqueEntityId();
+        EntityList.IDtoClassMapping.put(id,entity);
+        EntityList.entityEggs.put(id, new EntityEggInfo(id,primaryColor,secondaryColor));
+    }
+    
+    public static int getUniqueEntityId()
+    {
+        do 
+        {
+            startEntityId++;            
+        }
+        while (EntityList.getStringFromID(startEntityId) != null);
+        return startEntityId;
     }
 }

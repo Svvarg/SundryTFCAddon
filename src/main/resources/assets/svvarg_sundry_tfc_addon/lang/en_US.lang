@@ -17,3 +17,4 @@ item.svvarg_sundry_tfc_addon_sseed.name=Sundry Seed
 tile.svvarg_sundry_tfc_addon_ste.name=Sundry TileEntity
 tile.svvarg_sundry_tfc_addon_lootChest.name=LootChestr
 container.lootCheast=LootChest
+entity.svvarg_sundry_tfc_addon.sundrymob.name=Sundry Mob_
