@@ -1,12 +1,20 @@
 package com.svvarg.sundry;
 
 import cpw.mods.fml.common.IWorldGenerator;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import java.util.Random;
 import net.minecraft.block.Block;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.monster.EntityZombie;
+import net.minecraft.entity.projectile.EntityEgg;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.feature.WorldGenMinable;
+import net.minecraftforge.event.entity.living.LivingDropsEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.world.BlockEvent;
 /**
  *
  * @author Swarg
@@ -100,4 +108,56 @@ public class SundryEventHandler implements IWorldGenerator
         
     }
     
+    @SubscribeEvent
+    public void addDrops(LivingDropsEvent event)
+    {
+        if (event.entity instanceof EntityZombie)
+        {
+            if (event.entity.worldObj.rand.nextInt(10)==0)
+                event.drops.add(new EntityItem(event.entity.worldObj, event.entity.posX, event.entity.posY, event.entity.posZ,
+                        new ItemStack(Sundry.sboots)));
+            if (event.entity.worldObj.rand.nextInt(15)==0)
+                event.drops.add(new EntityItem(event.entity.worldObj, event.entity.posX, event.entity.posY, event.entity.posZ,
+                        new ItemStack(Sundry.shelmet)));
+        }        
+    }
+    
+    @SubscribeEvent
+    public void addBlockDrops(BlockEvent.HarvestDropsEvent event)
+    {
+        if (event.block == Blocks.red_flower)
+            event.drops.add(new ItemStack(Sundry.berry));
+    }
+    
+    @SubscribeEvent
+    public void throwEggs(PlayerInteractEvent event)
+    {
+        if (event.action == PlayerInteractEvent.Action.RIGHT_CLICK_AIR 
+                || event.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK)
+        {
+            if (event.entityPlayer.getCurrentEquippedItem()==null)
+            {
+                boolean fullSuit = true;
+                for (int i = 0; i < 4; i++)
+                {
+                    if (event.entityPlayer.getCurrentArmor(i) == null)
+                    {
+                        fullSuit = false;
+                        return;
+                    }
+                    else if (!(event.entityPlayer.getCurrentArmor(i).getItem() instanceof ItemSArmor))
+                    {
+                        fullSuit = false;
+                    }
+                }
+                if (fullSuit)
+                {
+                    event.entityPlayer.worldObj.spawnEntityInWorld(
+                            new EntityEgg(event.entityPlayer.worldObj, event.entityPlayer));
+                    
+                }
+            }
+            
+        }        
+    }
 }

@@ -25,6 +25,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityList.EntityEggInfo;
 import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.init.Items;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraft.item.Item.ToolMaterial;
@@ -144,7 +145,8 @@ public class Sundry {
         GameRegistry.registerItem(sunthrow, "SundryTrowable");
         proxy.registerItemRenders();
         
-        
+        RemoveCreeper();
+        MinecraftForge.EVENT_BUS.register(handler);
     }
 
     @EventHandler
@@ -185,5 +187,17 @@ public class Sundry {
         }
         while (EntityList.getStringFromID(startEntityId) != null);
         return startEntityId;
+    }
+    
+    //Example for remove vanilla mobs
+    public static void RemoveCreeper()
+    {        
+        for (int i = 0; i < BiomeGenBase.getBiomeGenArray().length; i++)
+        {
+            if (BiomeGenBase.getBiomeGenArray()[i] != null)
+            {
+                EntityRegistry.removeSpawn(EntityCreeper.class, EnumCreatureType.monster, BiomeGenBase.getBiomeGenArray()[i]);
+            }            
+        }
     }
 }
