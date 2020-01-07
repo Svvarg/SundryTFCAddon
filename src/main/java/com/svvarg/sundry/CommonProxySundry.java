@@ -12,4 +12,8 @@ public class CommonProxySundry
         
     }
     
+    public void registerItemRenders()
+    {
+        
+    }
 }

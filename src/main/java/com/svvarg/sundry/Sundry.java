@@ -30,6 +30,7 @@ import net.minecraftforge.common.util.EnumHelper;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
@@ -76,7 +77,7 @@ public class Sundry {
     
     SundryEventHandler handler = new SundryEventHandler();
     
-    
+    public static Item sunthrow;
        
     ArmorMaterial sarmor = EnumHelper.addArmorMaterial("sarmor", 20, new int[]{3, 7, 6, 3}, 10);
 
@@ -137,6 +138,13 @@ public class Sundry {
         EntityRegistry.registerModEntity(EntitySundryMob.class,"sundrymob",0,this,80,3,true);        
         registerEntityEgg(EntitySundryMob.class, 0xd8bb9d, 0xa63c1a);
         EntityRegistry.addSpawn(EntitySundryMob.class, 10, 1, 3, EnumCreatureType.monster, BiomeGenBase.forest);
+        
+        EntityRegistry.registerModEntity(EntitySundryThrowable.class,"sundrythrow",1,this,80,3,true);
+        sunthrow = new ItemSunThrow("sunthrow");
+        GameRegistry.registerItem(sunthrow, "SundryTrowable");
+        proxy.registerItemRenders();
+        
+        
     }
 
     @EventHandler

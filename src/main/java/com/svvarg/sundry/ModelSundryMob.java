@@ -33,6 +33,7 @@ public class ModelSundryMob extends ModelBase
         head.setTextureSize(64, 64);
         head.mirror = true;
         setRotation(head, 0F, 0F, 0F);
+                                                                                                                                
         body = new ModelRenderer(this, 16, 16);
         body.addBox(-4F, 0F, -2F, 8, 12, 4);
         body.setRotationPoint(0F, 0F, 0F);
